@@ -4,15 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import board.board.dto.BoardDto;
 import board.board.mapper.BoardMapper;
 
 @Service
+@Transactional
 public class BoardServiceImpl implements BoardService {
 
-	@Autowired BoardMapper boardMapper;
-	
+	@Autowired
+	BoardMapper boardMapper;
+
 	@Override
 	public List<BoardDto> selectBoardList() throws Exception {
 		return boardMapper.selectBoardList();
@@ -26,7 +29,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardDto selectBoardDetail(int boardIdx) throws Exception {
 		boardMapper.updateHitCount(boardIdx);
-		
 		return boardMapper.selectBoardDetail(boardIdx);
 	}
 
@@ -38,6 +40,5 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void deleteBoard(int boardIdx) throws Exception {
 		boardMapper.deleteBoard(boardIdx);
-		
 	}
 }
